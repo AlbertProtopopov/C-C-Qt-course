@@ -9,8 +9,14 @@ int main (){
     srand(time(0));
 
     FILE * fp;
+
+	for (int i = 0; i < 10; i++){
+
+	char * str2;
+	
+	sprintf(str2, "%d %s", i, ".txt");
     
-	fp = fopen("1.txt", "w");
+	fp = fopen(str2, "w");
         if (fp){
 
             for (int i = 0; i < 1000; i++){
@@ -22,6 +28,7 @@ int main (){
         }
     
         fclose(fp);
+	}
 
     return 0;
 }
