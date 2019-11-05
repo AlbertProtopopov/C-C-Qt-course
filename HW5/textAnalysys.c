@@ -14,8 +14,9 @@ int main (){
         printf("Frequency of character usage\n");
         
         for (char i = CHAR_MIN; i < (CHAR_MAX + 1); i++){
-	        long counter = 0;                               // тип long int от -2 147 483 647 до 2 147 483 647 
+	    long counter = 0;                               // тип long int от -2 147 483 647 до 2 147 483 647 
             char fchar = 0;
+
             while ((fchar = fgetc(pfile)) != EOF){
                 if (i == fchar)
                     counter++;            
