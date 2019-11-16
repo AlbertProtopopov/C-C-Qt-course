@@ -85,7 +85,6 @@ void addContact(){
         
     if(file)
         {
-            int check;
             fprintf(file, "Name: %s\nNumber: %s\n\n", contact.name, contact.number);
                 printf("\nContact added\n");
             fclose(file);
