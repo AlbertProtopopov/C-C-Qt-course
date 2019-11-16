@@ -86,8 +86,7 @@ void addContact(){
     if(file)
         {
             int check;
-            check = fprintf(file, "Name: %s\nNumber: %s\n\n", contact.name, contact.number);
-            if (check >=1)    // Проверка записи строки в файл
+            fprintf(file, "Name: %s\nNumber: %s\n\n", contact.name, contact.number);
                 printf("\nContact added\n");
             fclose(file);
         }
