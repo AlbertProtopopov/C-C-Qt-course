@@ -139,11 +139,17 @@ int main(){
         cout << "1. 2 игрока" << endl;
         cout << "2. Играть против ИИ" << endl;
         
-        int tempMode;
+        string input;
+        int tempMode = 0;
         
-        cin >> tempMode;
-        if (tempMode == 1 or tempMode == 2 ){
-            field.setMode(tempMode);
+        getline(cin, input);
+        tempMode;
+        if (input == "1"){
+            field.setMode(1);
+            break;
+        }
+        if (input == "2"){
+            field.setMode(2);
             break;
         }
         else
