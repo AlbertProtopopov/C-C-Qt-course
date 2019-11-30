@@ -120,7 +120,7 @@ public:
                 winnerChar = field[i];
                 noWinner = false;
             } else
-            if (((field[2] == field[4] and field[4] == field[6]) or (field[0] == field[4] and field[4] == field[8]) and (field[0] != '-')) and (field[2] != '-')){
+            if (((field[2] == field[4] and field[4] == field[6]) or (field[0] == field[4] and field[4] == field[8]) and (field[0] != '-')) and (field[4] != '-')){
                 winnerChar = field[4];
                 noWinner = false;
             };

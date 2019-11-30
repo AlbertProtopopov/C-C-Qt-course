@@ -21,7 +21,7 @@ public:
     string getName(){
         return name;
     }
-    virtual int makeMove(char * field);
+    virtual int makeMove(char * field) {};
 };
 
 class Player: public BasePlayer{
@@ -58,6 +58,7 @@ public:
 
 class Game {
     char field[9];
+    char winnerChar;
     int fieldCount = 0;
     int mode = 0;
 public:
@@ -95,7 +96,57 @@ public:
     int getMode(){
         return mode;
     }
+    void menu(){
+        while (true){
+        cout << "Выберите режим (1 or 2)" << endl;
+        cout << "1. 2 игрока" << endl;
+        cout << "2. Играть против ИИ" << endl;
+        
+        string input;
+        int tempMode = 0;
+        
+        getline(cin, input);
+        tempMode;
+        if (input == "1"){
+            setMode(1);
+            break;
+        }
+        if (input == "2"){
+            setMode(2);
+            break;
+        }
+        else
+            cout << "Неправильный ввод. Выберите 1 или 2" << endl;
+        }
+    }
+    bool checkWinner(){
+        bool noWinner = true;
+        for(int i = 0; i < 3; i++)
+            if (field[i*3] == field[i*3+1] and field[i*3+1] == field[i*3+2] and (field[i*3] != '-')){
+                winnerChar = field[i*3];
+                noWinner = false;
+            } else
+            if ((field[i] == field[i+3] and field[i+3] == field[i+6]) and field[i] != '-'){
+                winnerChar = field[i];
+                noWinner = false;
+            } else
+            if (((field[2] == field[4] and field[4] == field[6]) or (field[0] == field[4] and field[4] == field[8])) and (field[4] != '-')){
+                winnerChar = field[4];
+                noWinner = false;
+            };
+        return noWinner;     
+    }
     
+    bool checkField (){
+        bool notFull = true;
+        if (fieldCount == 9)
+            notFull = false;
+        return notFull;        
+    }
+    
+    char getWinnerChar(){
+        return winnerChar;
+    }    
 };
 
 int main(){
@@ -114,8 +165,7 @@ int main(){
     
     BasePlayer * p_player2;
     
-    //game.setMode(TWO_PLAYERS);
-    game.setMode(2);
+    game.menu();
     
     if (game.getMode() == 1){
         p_player2 = &player2;
@@ -127,11 +177,36 @@ int main(){
         p_player2->setName("AI");
         p_player2->setID(3);
     }
-        game.writeMove(player1.makeMove(game.getField()), player1.getID());
+    while (true){
+        cout << "game.checkWinner()" << game.checkWinner() << endl;
+        cout << "game.checkField()" << game.checkField() << endl;
+        
+        if (game.checkField() and game.checkWinner()){
+            game.show();
+            game.writeMove(player1.makeMove(game.getField()), player1.getID());
+        } else {
+            game.show();
+            break;
+        }
+        cout << "game.checkWinner()" << game.checkWinner() << endl;
+        cout << "game.checkField()" << game.checkField() << endl;
+        
+        if (game.checkField() and game.checkWinner()){
         game.show();
-    
         game.writeMove(p_player2->makeMove(game.getField()), p_player2->getID());
-        game.show();
+        } else {
+            game.show();
+            break;
+        }
+    }
+    cout << "Игра закончена. ";
+    
+    if (game.getWinnerChar() == 'X')
+        cout << "Победил " << player1.getName() << endl;
+    else if (game.getWinnerChar() == '0' and player2.getID() == 2)
+        cout << "Подедил " << player2.getName() << endl;
+    else if (game.getWinnerChar() == '0' and player2.getID() == 3)
+        cout << "Победил ИИ" << endl;
 
     return 0;
 }
